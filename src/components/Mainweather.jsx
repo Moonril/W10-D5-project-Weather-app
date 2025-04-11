@@ -1,7 +1,7 @@
 import { Button, Card, Col, Container, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
-const MainSearch = function () {
+const MainWeather = function () {
     return (
         <Container>
             <Row className="justify-content-center">
@@ -23,4 +23,4 @@ const MainSearch = function () {
     )
 }
 
-export default MainSearch
+export default MainWeather

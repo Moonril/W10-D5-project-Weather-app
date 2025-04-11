@@ -15,12 +15,12 @@ function App() {
     <BrowserRouter>
       <div className='d-flex flex-column vh-100'>
         <MyNavbar />
-          <main className='p-1 flex-grow-1'>
+          <main className='flex-grow-1'>
         <Routes>
 
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<MainSearch />} />
-            <Route path="/cityweather" element={<CityWeather />} />
+            <Route path="/cityweather/:cityName" element={<CityWeather />} />
         </Routes>
           </main>
         <MyFooter />

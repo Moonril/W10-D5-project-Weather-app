@@ -6,3 +6,8 @@ body {
 .footer {
     background-image: linear-gradient(to bottom, #963eac, #1b2141);
 }
+
+.maledetto-bg {
+    background-color: transparent;
+}
+
