@@ -1,5 +1,5 @@
 import { Dropdown } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 const MyNavbar = function() {
     return(
@@ -21,10 +21,10 @@ const MyNavbar = function() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu className="dropdown-menu dropdown-menu-end bg-black">
-                        <Link to='/cityweather' className={location.pathname === '/profile' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Quercianella</Link>
-                        <Link to='/cityweather' className={location.pathname === '/notifications' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Barcellona</Link>
-                        <Link to='/cityweather' className={location.pathname === '/search' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Montevarchi</Link>
-                        <Link to='/cityweather' className={location.pathname === '/settings' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Tokyo</Link>
+                        <Link to='/cityweather/quercianella' className={location.pathname === '/cityweather/quercianella' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Quercianella</Link>
+                        <Link to='/cityweather/barcelona' className={location.pathname === '/cityweather/barcelona' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Barcellona</Link>
+                        <Link to='/cityweather/tokyo' className={location.pathname === '/cityweather/tokyo' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Tokyo</Link>
+                        <Link to='/cityweather/seoul' className={location.pathname === '/cityweather/seoul' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Seoul</Link>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>

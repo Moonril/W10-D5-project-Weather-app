@@ -1,3 +1,5 @@
+/* non ho avuto tempo di mettere controlli per l'indirizzo in caso si inseriscano parole o città non esistenti :( */
+
 import { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { useParams } from "react-router-dom"
@@ -126,14 +128,14 @@ const CityWeather = function () {
         getWeather()
         getForecast()
         getImages()
-    }, [params.cityName]) // Devi usare cityName come dipendenza
+    }, [params.cityName]) 
 
-    // Rendering condizionale per evitare errori
+    // condizionale per evitare errori
     if (!city) {
-        return <div className="text-center p-5">Loading...</div> // Mostra un caricamento finché city è null
+        return <div className="text-center p-5">Loading...</div>
     }
     if (!cityForecast) {
-        return <div className="text-center p-5">Loading...</div> // Mostra un caricamento finché city è null
+        return <div className="text-center p-5">Loading...</div> 
     }
 
     return (
@@ -152,12 +154,12 @@ const CityWeather = function () {
             {/* current */}
             <Row className="mx-0 p-0 py-4 justify-content-between">
                 <h1 className="text-light py-3">{city.name}</h1>
-                <Col xs={4} md={2} className="border p-1">
+                <Col xs={4} md={2} className="border-end p-1">
                         <p className="fs-6 p-0 m-0">current:</p>
-                        <h2>{kelvinToCelsius(city.main.temp).toFixed(2)} &deg;C</h2>
+                        <h2>{kelvinToCelsius(city.main.temp).toFixed(0)} &deg;C</h2>
                 </Col>
                 
-                <Col xs={4} md={2} className="border p-1 text-center">
+                <Col xs={4} md={2} className="border-end p-1 text-center">
                     <img
                 src={`https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`}
                 alt={city.weather[0].description}
@@ -166,17 +168,18 @@ const CityWeather = function () {
 
                     <p>{city.weather[0].description} </p>
                 </Col>
-                <Col xs={4} md={2} className="border p-1">
+                <Col xs={4} md={2} className="border-end p-1">
                    <p className="fs-6 p-0 m-0">Feels like:</p>
                    <h2>{kelvinToCelsius(city.main.feels_like).toFixed(0)} &deg;C</h2>
                 </Col>
-                <Col xs={4} md={2} className="border p-1">
+                <Col xs={4} md={2} className="border-end p-1">
                    <p className="fs-6 p-0 m-0">Venti:</p>
-                   <h2>{city.wind.speed} nodi</h2>
+                   <h2>{city.wind.speed} <i class="bi bi-wind"></i>
+                   </h2>
                 </Col>
-                <Col xs={4} md={2} className="border p-1">
+                <Col xs={4} md={2} className="border-end p-1">
                    <p className="fs-6 p-0 m-0">Umidità:</p>
-                   <h2>{city.main.humidity}% </h2>
+                   <h2>{city.main.humidity}% <i class="bi bi-droplet"></i> </h2>
                 </Col>
             </Row>
 
@@ -219,7 +222,6 @@ const CityWeather = function () {
                     )
                     })
                 } 
-                {/* <p>{cityForecast.list[0].main.temp} </p> */}
 
         </Container>
     );

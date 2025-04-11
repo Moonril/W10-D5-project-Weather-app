@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Card, Col, Container, Row, Form } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
@@ -10,8 +10,18 @@ const MainSearch = function () {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        localStorage.setItem('lastSearch', search)
         navigate('/cityWeather/' + search)
     }
+
+    /* non funziona come voglio io, andrebbe salvata nel placeholder ma me la mette come input, non ho tempooo */
+    useEffect(()=>{
+        const savedSearch = localStorage.getItem('lastSearch')
+        if(savedSearch){
+            setSearch(savedSearch)
+        }
+    }, [])
     
     return (
         <Container>
@@ -55,7 +65,7 @@ const MainSearch = function () {
                 <h2 className="text-center text-light">Cerca un destinazione:</h2>
                 <Col xs={6} >
                 <Form className="text-center" onSubmit={handleSubmit}>
-                        <Form.Control className="my-2" type='text' placeholder="girona.." value={search} onChange={(e) =>
+                        <Form.Control className="my-2" type='text' placeholder={`ultima ricerca: ${search || 'nessuna'} `} value={search} onChange={(e) =>
                             setSearch(e.target.value)
                         } />
                         <Button className="text-light border border-light p-2 rounded-0 bg-transparent mb-1 ms-1" type="submit">Cerca</Button>
