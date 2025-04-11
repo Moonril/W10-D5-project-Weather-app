@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Button, Card, Col, Container, Row, Form } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { Sun } from "react-bootstrap-icons"
 
 const MainSearch = function () {
     const [search, setSearch] = useState('')
@@ -16,36 +17,36 @@ const MainSearch = function () {
         <Container>
             <Row className="justify-content-center py-3">
                 <h1 className="text-center text-light py-5">Dove andiamo oggi?</h1>
-                <Col xs={12} sm={6} md={4} lg={4} xl={2}>
+                <Col xs={12} sm={6} md={4} lg={2} xl={2}>
                 <Card className="border-0 bg-transparent rounded-4">
                     <Link to={'/cityWeather/quercianella'} >
-                        <Card.Img variant="top" src="https://www.visit-livorno.it/wp-content/uploads/2024/01/quercianella-01-scaled.jpeg" />
+                        <Card.Img variant="top" className="w-100 maremma" src="https://www.visit-livorno.it/wp-content/uploads/2024/01/quercianella-01-scaled.jpeg" />
                     </Link>
-                    <Card.Title className="text-center text-light">Quercianella</Card.Title>
+                    <Card.Title className="text-center text-light">Quercianella <Sun /></Card.Title>
                 </Card>
                 </Col>
-                <Col xs={12} sm={6} md={4} lg={4} xl={2}>
+                <Col xs={12} sm={6} md={4} lg={2} xl={2}>
                 <Card className="border-0 bg-transparent rounded-4">
                     <Link to={'/cityWeather/barcelona'} >
-                        <Card.Img variant="top" src="https://www.visit-livorno.it/wp-content/uploads/2024/01/quercianella-01-scaled.jpeg" />
+                        <Card.Img variant="top" className="w-100 maremma" src="https://www.spagna.info/wp-content/uploads/sites/39/barcellona-sagrada-familia-arcobaleno.jpg" />
                     </Link>
-                    <Card.Title className="text-center text-light">Barcellona</Card.Title>
+                    <Card.Title className="text-center text-light">Barcellona <Sun /></Card.Title>
                 </Card>
                 </Col>
-                <Col xs={12} sm={6} md={4} lg={4} xl={2}>
+                <Col xs={12} sm={6} md={4} lg={2} xl={2}>
                 <Card className="border-0 bg-transparent rounded-4">
                     <Link to={'/cityWeather/tokyo'} >
-                        <Card.Img variant="top" src="https://www.visit-livorno.it/wp-content/uploads/2024/01/quercianella-01-scaled.jpeg" />
+                        <Card.Img variant="top" className="w-100 maremma" src="https://t4.ftcdn.net/jpg/02/51/12/11/360_F_251121174_5xQyUCqSrkswyLHbM9Ne8DQ8Qb0o1HGw.jpg" />
                     </Link>
-                    <Card.Title className="text-center text-light">Tokyo</Card.Title>
+                    <Card.Title className="text-center text-light">Tokyo <Sun /></Card.Title>
                 </Card>
                 </Col>
-                <Col xs={12} sm={6} md={4} lg={4} xl={2}>
+                <Col xs={12} sm={6} md={4} lg={2} xl={2}>
                 <Card className="border-0 bg-transparent rounded-4">
                     <Link to={'/cityWeather/seoul'} >
-                        <Card.Img variant="top" src="https://www.visit-livorno.it/wp-content/uploads/2024/01/quercianella-01-scaled.jpeg" />
+                        <Card.Img variant="top" className="w-100 maremma" src="https://149990825.v2.pressablecdn.com/wp-content/uploads/2023/09/Seoul1.jpg" />
                     </Link>
-                    <Card.Title className="text-center text-light">Seoul</Card.Title>
+                    <Card.Title className="text-center text-light">Seoul <Sun /></Card.Title>
                 </Card>
                 </Col>
                 
