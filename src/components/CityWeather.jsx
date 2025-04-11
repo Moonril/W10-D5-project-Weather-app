@@ -156,7 +156,8 @@ const CityWeather = function () {
                 <h1 className="text-light py-3">{city.name}</h1>
                 <Col xs={4} md={2} className="border-end p-1">
                         <p className="fs-6 p-0 m-0">current:</p>
-                        <h2>{kelvinToCelsius(city.main.temp).toFixed(0)} &deg;C</h2>
+                        <h2><i class="bi bi-thermometer-half"></i>
+                        {kelvinToCelsius(city.main.temp).toFixed(0)} &deg;C</h2>
                 </Col>
                 
                 <Col xs={4} md={2} className="border-end p-1 text-center">
@@ -170,7 +171,8 @@ const CityWeather = function () {
                 </Col>
                 <Col xs={4} md={2} className="border-end p-1">
                    <p className="fs-6 p-0 m-0">Feels like:</p>
-                   <h2>{kelvinToCelsius(city.main.feels_like).toFixed(0)} &deg;C</h2>
+                   <h2><i class="bi bi-thermometer-half"></i>
+                   {kelvinToCelsius(city.main.feels_like).toFixed(0)} &deg;C</h2>
                 </Col>
                 <Col xs={4} md={2} className="border-end p-1">
                    <p className="fs-6 p-0 m-0">Venti:</p>
@@ -194,7 +196,8 @@ const CityWeather = function () {
                         <Row key={day.dt} className="mx-0 p-0 justify-content-between">
                         <Col xs={4} md={2} className="border-end">
                             <p className="fs-6 p-0 m-0">current:</p>
-                            <h4>{kelvinToCelsius(day.main.temp).toFixed(0)} &deg;C</h4>
+                            <h4><i class="bi bi-thermometer-half"></i>
+                            {kelvinToCelsius(day.main.temp).toFixed(0)} &deg;C</h4>
                                 
                         </Col>
                             
@@ -208,15 +211,16 @@ const CityWeather = function () {
                         </Col>
                             <Col xs={4} md={2} className="border-end">
                             <p className="fs-6 p-0 m-0">Minime e Massime:</p>
-                            <h4>{kelvinToCelsius(day.main.temp_min).toFixed(0)}  - {kelvinToCelsius(day.main.temp_max).toFixed(0)} &deg;C</h4>
+                            <h5><i class="bi bi-thermometer-half"></i>
+                            {kelvinToCelsius(day.main.temp_min).toFixed(0)}  - {kelvinToCelsius(day.main.temp_max).toFixed(0)} &deg;C</h5>
                             </Col>
                             <Col xs={4} md={2} className="border-end">
                             <p className="fs-6 p-0 m-0">Venti:</p>
-                            <h4>{day.wind.speed} nodi</h4>
+                            <h4>{day.wind.speed} <i class="bi bi-wind"></i></h4>
                             </Col>
                             <Col xs={4} md={2}>
                             <p className="fs-6 p-0 m-0">Umidità:</p>
-                            <h4>{day.main.humidity}% </h4>
+                            <h4>{day.main.humidity}% <i class="bi bi-droplet"></i></h4>
                             </Col>
                     </Row>
                     )
