@@ -111,24 +111,24 @@ const CityWeather = function () {
             {/* current */}
             <Row className="mx-0 p-0 py-4 justify-content-between">
                 <h1 className="text-light py-3">{city.name}</h1>
-                <Col xs={2}  className="border-end">
+                <Col xs={4} md={2} className="border p-1">
                         <p className="fs-6 p-0 m-0">current:</p>
                         <h2>{kelvinToCelsius(city.main.temp).toFixed(2)} &deg;C</h2>
                 </Col>
                 
-                <Col xs={2} className="border-end">
+                <Col xs={4} md={2} className="border p-1">
                     <Sun />
                     <p>{city.weather[0].description} </p>
                 </Col>
-                <Col xs={2} className="border-end">
+                <Col xs={4} md={2} className="border p-1">
                    <p className="fs-6 p-0 m-0">Feels like:</p>
                    <h2>{kelvinToCelsius(city.main.feels_like).toFixed(2)} &deg;C</h2>
                 </Col>
-                <Col xs={2} className="border-end">
+                <Col xs={4} md={2} className="border p-1">
                    <p className="fs-6 p-0 m-0">Venti:</p>
                    <h2>{city.wind.speed} nodi</h2>
                 </Col>
-                <Col xs={2}>
+                <Col xs={4} md={2} className="border p-1">
                    <p className="fs-6 p-0 m-0">Umidità:</p>
                    <h2>{city.main.humidity}% </h2>
                 </Col>
@@ -143,25 +143,25 @@ const CityWeather = function () {
                         return (
                         
                         <Row className="mx-0 p-0 justify-content-between">
-                        <Col xs={2} className="border-end">
+                        <Col xs={4} md={2} className="border-end">
                             <p className="fs-6 p-0 m-0">current:</p>
                             <h4>{kelvinToCelsius(day.main.temp).toFixed(2)} &deg;C</h4>
                                 
                         </Col>
                             
-                        <Col xs={2} className="border-end">
+                        <Col xs={4} md={2} className="border-end">
                                 <Sun />
                                 <p>{day.weather[0].description} </p>
                         </Col>
-                            <Col xs={2} className="border-end">
+                            <Col xs={4} md={2} className="border-end">
                             <p className="fs-6 p-0 m-0">Minime e Massime:</p>
                             <h4>{kelvinToCelsius(day.main.temp_min).toFixed(2)}  - {kelvinToCelsius(day.main.temp_max).toFixed(2)} &deg;C</h4>
                             </Col>
-                            <Col xs={2} className="border-end">
+                            <Col xs={4} md={2} className="border-end">
                             <p className="fs-6 p-0 m-0">Venti:</p>
                             <h4>{day.wind.speed} nodi</h4>
                             </Col>
-                            <Col xs={2}>
+                            <Col xs={4} md={2}>
                             <p className="fs-6 p-0 m-0">Umidità:</p>
                             <h4>{day.main.humidity}% </h4>
                             </Col>
