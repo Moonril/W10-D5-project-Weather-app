@@ -18,9 +18,10 @@ function App() {
           <main className='flex-grow-1'>
         <Routes>
 
-            <Route path="*" element={<NotFound />} />
             <Route path="/" element={<MainSearch />} />
             <Route path="/cityweather/:cityName" element={<CityWeather />} />
+            
+            <Route path="*" element={<NotFound />} />
         </Routes>
           </main>
         <MyFooter />
