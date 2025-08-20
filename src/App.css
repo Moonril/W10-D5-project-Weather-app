@@ -1,7 +1,19 @@
-body {
-    background-image: linear-gradient(to bottom right, #1b2141, #963eac);
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
+body {
+    background-image: linear-gradient(to bottom right, #1b2141, #963eac);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.bg-dropdown {
+    background-image: linear-gradient(to bottom right, #1b2141, #963eac);
+}
 
 .footer {
     background-image: linear-gradient(to bottom, #963eac, #1b2141);
@@ -19,4 +31,16 @@ body {
 .maremma-dinamica {
     height: 70vh;
     object-fit: cover;
+}
+
+#current-weather-overlay {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+#current-temp {
+    font-size: 5rem;
 }

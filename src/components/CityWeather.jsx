@@ -141,23 +141,65 @@ const CityWeather = function () {
     return (
         <Container fluid className="mx-0 p-0 text-light">
             {/* foto */}
-            <Row className="mx-0 p-0 bg-row">
+            <Row className="mx-0 p-0 bg-row position-relative">
                 <Col className="mx-0 p-0">
                     <img
-                        src={immagine?.photos?.[0]?.src?.landscape ? immagine.photos[0].src.landscape : 'https://images.pexels.com/photos/33044/sunflower-sun-summer-yellow.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
+                        src={immagine?.photos?.[0]?.src?.landscape ? immagine.photos[0].src.landscape : 'https://images.pexels.com/photos/6317304/pexels-photo-6317304.jpeg'}
                         className="w-100 maremma-dinamica"
                         alt={"foto " + city.name}
                     />
                 </Col>
+                {/* current overlay */}
+                <div id="current-weather-overlay" className="d-flex flex-column position-absolute">
+                    <h1 className="text-light py-3">{city.name}</h1>
+                    <div className="d-flex flex-row justify-content-between">
+                        {/* temp */}
+                        <div className="border border-1 border-white rounded-3 p-2 bg-white bg-opacity-10">
+                            <h4 className="fs-6 fw-light">Today - current time</h4>
+                            <h2 ><i className="bi bi-thermometer-half"></i>
+                                <span id="current-temp">
+                                    {kelvinToCelsius(city.main.temp).toFixed(0)}&deg;
+                                </span>
+                                C
+                            </h2>
+                            <p className="fs-6 p-0 m-0">Feels like:</p>
+                            <h2><i className="bi bi-thermometer-half"></i>
+                            {kelvinToCelsius(city.main.feels_like).toFixed(0)} &deg;C</h2>
+
+                        </div>
+                        {/* skies */}
+                        <div>
+                            <img
+                                src={`https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`}
+                                alt={city.weather[0].description}
+                                className="weather-icon w-100"
+                            />
+                            <p>{city.weather[0].description} </p>
+                        </div>
+                    </div>
+                    <div className="d-flex flex-row text-center justify-content-center border border-1 border-white rounded-3 p-2 bg-white bg-opacity-10">
+                        <div>
+                            <h2 className="fs-6"><i className="bi bi-wind"></i> {city.wind.speed} m/s
+                            </h2>
+                        </div>
+                        <div>
+                            <p className="fs-6 p-0 m-0">Umidità:</p>
+                            <h2>{city.main.humidity}% <i className="bi bi-droplet"></i> </h2>
+                        </div>
+                        <div><p>pioggia?</p></div>
+                    </div>
+                </div>
             </Row>
+
 
             {/* current */}
             <Row className="mx-0 p-0 py-4 justify-content-between">
                 <h1 className="text-light py-3">{city.name}</h1>
                 <Col xs={4} md={2} className="border-end p-1">
                         <p className="fs-6 p-0 m-0">current:</p>
-                        <h2><i class="bi bi-thermometer-half"></i>
+                        <h2><i className="bi bi-thermometer-half"></i>
                         {kelvinToCelsius(city.main.temp).toFixed(0)} &deg;C</h2>
+                    
                 </Col>
                 
                 <Col xs={4} md={2} className="border-end p-1 text-center">
@@ -171,17 +213,17 @@ const CityWeather = function () {
                 </Col>
                 <Col xs={4} md={2} className="border-end p-1">
                    <p className="fs-6 p-0 m-0">Feels like:</p>
-                   <h2><i class="bi bi-thermometer-half"></i>
+                   <h2><i className="bi bi-thermometer-half"></i>
                    {kelvinToCelsius(city.main.feels_like).toFixed(0)} &deg;C</h2>
                 </Col>
                 <Col xs={4} md={2} className="border-end p-1">
                    <p className="fs-6 p-0 m-0">Venti:</p>
-                   <h2>{city.wind.speed} <i class="bi bi-wind"></i>
+                   <h2>{city.wind.speed} <i className="bi bi-wind"></i>
                    </h2>
                 </Col>
                 <Col xs={4} md={2} className="border-end p-1">
                    <p className="fs-6 p-0 m-0">Umidità:</p>
-                   <h2>{city.main.humidity}% <i class="bi bi-droplet"></i> </h2>
+                   <h2>{city.main.humidity}% <i className="bi bi-droplet"></i> </h2>
                 </Col>
             </Row>
 
@@ -196,7 +238,7 @@ const CityWeather = function () {
                         <Row key={day.dt} className="mx-0 p-0 justify-content-between">
                         <Col xs={4} md={2} className="border-end">
                             <p className="fs-6 p-0 m-0">current:</p>
-                            <h4><i class="bi bi-thermometer-half"></i>
+                            <h4><i className="bi bi-thermometer-half"></i>
                             {kelvinToCelsius(day.main.temp).toFixed(0)} &deg;C</h4>
                                 
                         </Col>
@@ -211,16 +253,16 @@ const CityWeather = function () {
                         </Col>
                             <Col xs={4} md={2} className="border-end">
                             <p className="fs-6 p-0 m-0">Minime e Massime:</p>
-                            <h5><i class="bi bi-thermometer-half"></i>
+                            <h5><i className="bi bi-thermometer-half"></i>
                             {kelvinToCelsius(day.main.temp_min).toFixed(0)}  - {kelvinToCelsius(day.main.temp_max).toFixed(0)} &deg;C</h5>
                             </Col>
                             <Col xs={4} md={2} className="border-end">
                             <p className="fs-6 p-0 m-0">Venti:</p>
-                            <h4>{day.wind.speed} <i class="bi bi-wind"></i></h4>
+                            <h4>{day.wind.speed} <i className="bi bi-wind"></i></h4>
                             </Col>
                             <Col xs={4} md={2}>
                             <p className="fs-6 p-0 m-0">Umidità:</p>
-                            <h4>{day.main.humidity}% <i class="bi bi-droplet"></i></h4>
+                            <h4>{day.main.humidity}% <i className="bi bi-droplet"></i></h4>
                             </Col>
                     </Row>
                     )
