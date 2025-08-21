@@ -146,7 +146,11 @@ const CityWeather = function () {
 
     /* filter forecast for today's weather */
 
-
+    const getDateOffset = (offset) => {
+    const date = new Date()
+        date.setDate(date.getDate() + offset)
+        return date
+    }
 
     //useEffect
 
@@ -243,6 +247,37 @@ const CityWeather = function () {
                 </Col>
             </Row>
 
+            
+
+            {/*  forecast */}
+
+                <h5 className="ps-3 py-3">Next 5 days:</h5>
+                <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
+                {/* next few hours tomorrow */}
+            <Row className="p-3 m-0">
+                <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(1)} />
+            </Row>
+                <h5 className="ps-3 py-3">Next 5 days:</h5>
+                <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
+                {/* next few hours today */}
+            <Row className="p-3 m-0">
+                <TodaysForecastCard cityForecast={cityForecast} />
+            </Row>
+                <h5 className="ps-3 py-3">Next 5 days:</h5>
+                <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
+                {/* next few hours today */}
+            <Row className="p-3 m-0">
+                <TodaysForecastCard cityForecast={cityForecast} />
+            </Row>
+                <h5 className="ps-3 py-3">Next 5 days:</h5>
+                <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
+                {/* next few hours today */}
+            <Row className="p-3 m-0">
+                <TodaysForecastCard cityForecast={cityForecast} />
+            </Row>
+
+
+
             {/* current */}
             <Row className="mx-0 p-0 py-4 justify-content-between">
                 <h1 className="text-light py-3">{city.name}</h1>
@@ -277,10 +312,6 @@ const CityWeather = function () {
                    <h2>{city.main.humidity}% <i className="bi bi-droplet"></i> </h2>
                 </Col>
             </Row>
-
-            {/*  forecast */}
-
-                <h5 className="ps-3 py-3">Previsioni dei prossimi 7 giorni:</h5>
 
                  {
                     cityForecast.list.slice(0, 7).map((day, i) => { 

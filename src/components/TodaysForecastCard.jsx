@@ -1,10 +1,9 @@
 import { Col } from 'react-bootstrap'
 
-function TodaysForecastCard({ cityForecast }) {
-  const today = new Date()
-  const todayDateString = today.toLocaleDateString('en-CA', {
+function TodaysForecastCard({ cityForecast, targetDate }) {
+  const targetDateString = targetDate.toLocaleDateString('en-CA', {
     timeZone: 'Europe/Madrid'
-  }) // formato YYYY-MM-DD
+  }) // formato YYYY-MM-DD, why???
 
   const kelvinToCelsius = (k) => k - 273.15
 
@@ -12,8 +11,9 @@ function TodaysForecastCard({ cityForecast }) {
     const localDate = new Date(item.dt * 1000).toLocaleDateString('en-CA', {
       timeZone: 'Europe/Madrid'
     })
-    return localDate === todayDateString
+    return localDate === targetDateString
   })
+
 
   return (
     <>
