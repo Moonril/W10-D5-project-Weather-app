@@ -3,13 +3,14 @@ import { Col } from 'react-bootstrap'
 function TodaysForecastCard({ cityForecast, targetDate }) {
   const targetDateString = targetDate.toLocaleDateString('en-CA', {
     timeZone: 'Europe/Madrid'
-  }) // formato YYYY-MM-DD, why???
+  }) 
+
 
   const kelvinToCelsius = (k) => k - 273.15
 
   const todayForecasts = cityForecast.list.filter((item) => {
     const localDate = new Date(item.dt * 1000).toLocaleDateString('en-CA', {
-      timeZone: 'Europe/Madrid'
+      timeZone: cityForecast.timezone
     })
     return localDate === targetDateString
   })
@@ -18,8 +19,9 @@ function TodaysForecastCard({ cityForecast, targetDate }) {
   return (
     <>
       {todayForecasts.map((day, i) => {
-        const localTime = new Date(day.dt * 1000).toLocaleTimeString('es-ES', {
-          timeZone: 'Europe/Madrid',
+        const offsetMs = cityForecast.timezone * 1000;
+        const localDate = new Date(day.dt * 1000 + offsetMs);
+        const localTime = localDate.toLocaleTimeString('es-ES', {
           hour: '2-digit',
           minute: '2-digit'
         })
@@ -27,8 +29,8 @@ function TodaysForecastCard({ cityForecast, targetDate }) {
         return (
           <Col
             key={i}
-            xs={4}
-            className="border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 text-center"
+            xs={3}
+            className="border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 text-center m-1"
           >
             <img
               src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}

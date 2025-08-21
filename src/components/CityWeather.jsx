@@ -227,8 +227,8 @@ const CityWeather = function () {
             </Row>
 
             {/* next few hours today */}
-            <Row className="p-3 m-0">
-                <TodaysForecastCard cityForecast={cityForecast} />
+            <Row className="p-3 m-0 justify-content-center">
+                <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(0)} />
             </Row>
 
 
@@ -254,26 +254,26 @@ const CityWeather = function () {
                 <h5 className="ps-3 py-3">Next 5 days:</h5>
                 <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
                 {/* next few hours tomorrow */}
-            <Row className="p-3 m-0">
+            <Row className="p-3 m-0 justify-content-center">
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(1)} />
             </Row>
                 <h5 className="ps-3 py-3">Next 5 days:</h5>
-                <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
+                <h5 className="ps-3 py-3 text-center"></h5>
                 {/* next few hours today */}
-            <Row className="p-3 m-0">
-                <TodaysForecastCard cityForecast={cityForecast} />
+            <Row className="p-3 m-0 justify-content-center">
+                <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(2)} />
             </Row>
                 <h5 className="ps-3 py-3">Next 5 days:</h5>
                 <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
                 {/* next few hours today */}
-            <Row className="p-3 m-0">
-                <TodaysForecastCard cityForecast={cityForecast} />
+            <Row className="p-3 m-0 justify-content-center">
+                <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(3)} />
             </Row>
                 <h5 className="ps-3 py-3">Next 5 days:</h5>
                 <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
                 {/* next few hours today */}
-            <Row className="p-3 m-0">
-                <TodaysForecastCard cityForecast={cityForecast} />
+            <Row className="p-3 m-0 justify-content-center">
+                <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(4)} />
             </Row>
 
 
