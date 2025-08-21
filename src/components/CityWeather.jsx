@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { useParams } from "react-router-dom"
+import TodaysForecastCard from "./TodaysForecastCard"
 
 
 const urlApiFirstPart = 'https://api.openweathermap.org/data/2.5/weather?q='
@@ -19,6 +20,27 @@ const CityWeather = function () {
     const [immagine, setImmagine] = useState('london')
 
     const params = useParams()
+
+    /* current date time */
+    const currDate = new Date()
+    const formattedDate = currDate.toLocaleDateString('it-IT', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    })
+    const currTime = new Date().toLocaleTimeString('it-IT', {
+        hour: '2-digit',
+        minute: '2-digit'
+    })
+
+    /* sunrise/set hours */
+
+    function formatSunTime(unixTime) {
+        return new Date(unixTime * 1000).toLocaleTimeString('it-IT', {
+            timeZone: 'Europe/Madrid',
+            hour: '2-digit',
+            minute: '2-digit'
+    })}
 
     // fetch current weather
     const getWeather = () => {
@@ -122,6 +144,10 @@ const CityWeather = function () {
         })
     }
 
+    /* filter forecast for today's weather */
+
+
+
     //useEffect
 
     useEffect(() => {
@@ -155,7 +181,7 @@ const CityWeather = function () {
                     <div className="d-flex flex-row justify-content-between">
                         {/* temp */}
                         <div className="border border-1 border-white rounded-3 p-2 bg-white bg-opacity-10">
-                            <h4 className="fs-6 fw-light">Today - current time</h4>
+                            <h4 className="fs-6 fw-light">{formattedDate} &middot; {currTime}</h4>
                             <h2 ><i className="bi bi-thermometer-half"></i>
                                 <span id="current-temp">
                                     {kelvinToCelsius(city.main.temp).toFixed(0)}&deg;
@@ -177,20 +203,45 @@ const CityWeather = function () {
                             <p>{city.weather[0].description} </p>
                         </div>
                     </div>
-                    <div className="d-flex flex-row text-center justify-content-center border border-1 border-white rounded-3 p-2 bg-white bg-opacity-10">
+                    {/* wind - humidity - rain */}
+                    <div className="d-flex flex-row text-center justify-content-between border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 w-50 mt-1 align-self-center">
                         <div>
-                            <h2 className="fs-6"><i className="bi bi-wind"></i> {city.wind.speed} m/s
+                            <p><i className="bi bi-wind"></i></p>
+                            <h2 className="fs-6"> {city.wind.speed} m/s
                             </h2>
                         </div>
                         <div>
-                            <p className="fs-6 p-0 m-0">Umidità:</p>
-                            <h2>{city.main.humidity}% <i className="bi bi-droplet"></i> </h2>
+                            <p className="fs-6"><i className="bi bi-moisture"></i></p>
+                            <h2 className="fs-6">{city.main.humidity}%</h2>
                         </div>
-                        <div><p>pioggia?</p></div>
+                        <div>
+                            <p><i className="bi bi-umbrella"></i></p>
+                            <p>{city.rain ? city.rain : '0'}/h</p>
+                        </div>
                     </div>
                 </div>
             </Row>
 
+            {/* next few hours today */}
+            <Row className="p-3 m-0">
+                <TodaysForecastCard cityForecast={cityForecast} />
+            </Row>
+
+
+            {/* today pressure + sunrise */}
+
+            <Row className="m-0 p-3 justify-content-around">
+                <Col xs={4} className="border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 text-center">
+                    <p>pressure</p>
+                    <p>{city.main.pressure} hPa</p>
+                </Col>
+                <Col xs={4} className="border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 text-center">
+                    <p>Sunrise</p>
+                    <p><i className="bi bi-sunrise"></i> {formatSunTime(city.sys.sunrise)}</p>
+                    <p>Sunset</p>
+                    <p><i className="bi bi-sunset-fill"></i> {formatSunTime(city.sys.sunset)}</p>
+                </Col>
+            </Row>
 
             {/* current */}
             <Row className="mx-0 p-0 py-4 justify-content-between">
@@ -270,7 +321,7 @@ const CityWeather = function () {
                 } 
 
         </Container>
-    );
-};
+    )
+}
 
-export default CityWeather;
+export default CityWeather
