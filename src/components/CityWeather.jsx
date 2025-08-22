@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { useParams } from "react-router-dom"
-import TodaysForecastCard from "./TodaysForecastCard"
+import ForecastCard from "./ForecastCard"
 import tz_lookup from "tz-lookup"
 import NotFound from './NotFound'
+import TodaysForecastCard from "./TodaysForecastCard"
 
 
 
@@ -22,6 +23,7 @@ const CityWeather = function () {
     const params = useParams()
 
     const kelvinToCelsius = (k) => k - 273.15
+    const windPerHour =(w) => w * 3.6
 
   
 
@@ -217,7 +219,7 @@ const CityWeather = function () {
                     <div id="wind-humidity-rain-overlay" className="d-flex flex-row text-center justify-content-between border border-1 border-white rounded-5 p-3 bg-white bg-opacity-10 w-50 mt-1 align-self-center align-self-md-start blur-effect">
                         <div>
                             <p className="fs-6 m-0"><i className="bi bi-wind"></i></p>
-                            <h2 className="fs-6 m-0"> {city.wind.speed} m/s
+                            <h2 className="fs-6 m-0"> {windPerHour(city.wind.speed).toFixed(0)} km/h
                             </h2>
                         </div>
                         <div>
@@ -233,23 +235,27 @@ const CityWeather = function () {
             </Row>
 
             {/* next few hours today */}
-            <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
+            <Row className="p-3 m-0" style={{ gap: '0.5rem' }}>
+                <h2>Next few hours</h2>
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(0)} />
             </Row>
 
 
             {/* today pressure + sunrise */}
 
-            <Row className="m-0 p-3 justify-content-around">
-                <Col xs={4} className="border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 text-center">
-                    <p>pressure</p>
-                    <p>{city.main.pressure} hPa</p>
+            <Row className="m-0 p-3 justify-content-around justify-content-md-center border-1 border-bottom "  style={{ gap: '0.5rem' }}>
+                <Col xs={5} md={3} lg={2} className="border border-1 border-white rounded-4 bg-white bg-opacity-10 text-start p-2">
+                    <p className="m-0  fs-6 m-0">Sunrise</p>
+                    <p className="m-0 fs-3 text-center"><i className="bi bi-sunrise"></i> {formatSunTime(city.sys.sunrise)}</p>
+                    <p className="m-0  fs-6 m-0">Sunset</p>
+                    <p className="m-0 fs-3 text-center"><i className="bi bi-sunset-fill"></i> {formatSunTime(city.sys.sunset)}</p>
                 </Col>
-                <Col xs={4} className="border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 text-center">
-                    <p>Sunrise</p>
-                    <p><i className="bi bi-sunrise"></i> {formatSunTime(city.sys.sunrise)}</p>
-                    <p>Sunset</p>
-                    <p><i className="bi bi-sunset-fill"></i> {formatSunTime(city.sys.sunset)}</p>
+                <Col xs={5} md={3} lg={2} className="border border-1 border-white rounded-4 bg-white bg-opacity-10 text-center p-2">
+                    <p className="mb-1 text-start text-center">Pressure</p>
+                    <p className="m-0 text-start">Ground level</p>
+                    <p className="m-0 fs-3"><i class="bi bi-cloud-fog"></i> {city.main.pressure} hPa</p>
+                    <p className="m-0 text-start">Sea level</p>
+                    <p className="m-0 fs-3"><i class="bi bi-tsunami"></i> {city.main.pressure} hPa</p>
                 </Col>
             </Row>
 
@@ -258,12 +264,12 @@ const CityWeather = function () {
             {/*  forecast */}
 
                 {/* tomorrow */}
-                <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
+                <h5 className="pt-4 text-center m-0">Tomorrow</h5>
             <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
-                <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(1)} />
+                <ForecastCard cityForecast={cityForecast} targetDate={getDateOffset(1)} />
             </Row>
             {/* 2 days */}
-                <h5 className="ps-3 py-3 text-center">{getDateOffset(2).toLocaleDateString('it-IT', {
+                <h5 className="pt-4 text-center m-0">{getDateOffset(2).toLocaleDateString('it-IT', {
                     timeZone: tzCity,
                     day: 'numeric',
                     month: 'long',
@@ -272,10 +278,10 @@ const CityWeather = function () {
                 </h5>
 
             <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
-                <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(2)} />
+                <ForecastCard cityForecast={cityForecast} targetDate={getDateOffset(2)} />
             </Row>
             {/* 3 days */}
-                <h5 className="ps-3 py-3 text-center">{getDateOffset(3).toLocaleDateString('it-IT', {
+                <h5 className="pt-4 text-center m-0">{getDateOffset(3).toLocaleDateString('it-IT', {
                     timeZone: tzCity,
                     day: 'numeric',
                     month: 'long',
@@ -283,10 +289,10 @@ const CityWeather = function () {
                 })}</h5>
 
             <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
-                <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(3)} />
+                <ForecastCard cityForecast={cityForecast} targetDate={getDateOffset(3)} />
             </Row>
             {/* 4 days */}
-                <h5 className="ps-3 py-3 text-center">{getDateOffset(4).toLocaleDateString('it-IT', {
+                <h5 className="pt-4 text-center m-0">{getDateOffset(4).toLocaleDateString('it-IT', {
                     timeZone: tzCity,
                     day: 'numeric',
                     month: 'long',
@@ -294,83 +300,10 @@ const CityWeather = function () {
                 })}</h5>
 
             <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
-                <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(4)} />
+                <ForecastCard cityForecast={cityForecast} targetDate={getDateOffset(4)} />
             </Row>
 
-
-
-            {/* current */}
-            <Row className="mx-0 p-0 py-4 justify-content-between">
-                <h1 className="text-light py-3">{city.name}</h1>
-                <Col xs={4} md={2} className="border-end p-1">
-                        <p className="fs-6 p-0 m-0">current:</p>
-                        <h2><i className="bi bi-thermometer-half"></i>
-                        {kelvinToCelsius(city.main.temp).toFixed(0)} &deg;C</h2>
-                    
-                </Col>
-                
-                <Col xs={4} md={2} className="border-end p-1 text-center">
-                    <img
-                src={`https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`}
-                alt={city.weather[0].description}
-                className="weather-icon w-25"
-            />
-
-                    <p>{city.weather[0].description} </p>
-                </Col>
-                <Col xs={4} md={2} className="border-end p-1">
-                   <p className="fs-6 p-0 m-0">Feels like:</p>
-                   <h2><i className="bi bi-thermometer-half"></i>
-                   {kelvinToCelsius(city.main.feels_like).toFixed(0)} &deg;C</h2>
-                </Col>
-                <Col xs={4} md={2} className="border-end p-1">
-                   <p className="fs-6 p-0 m-0">Venti:</p>
-                   <h2>{city.wind.speed} <i className="bi bi-wind"></i>
-                   </h2>
-                </Col>
-                <Col xs={4} md={2} className="border-end p-1">
-                   <p className="fs-6 p-0 m-0">Umidità:</p>
-                   <h2>{city.main.humidity}% <i className="bi bi-droplet"></i> </h2>
-                </Col>
-            </Row>
-
-                 {
-                    cityForecast.list.slice(0, 7).map((day, i) => { 
-                        return (
-                        
-                        <Row key={day.dt} className="mx-0 p-0 justify-content-between">
-                        <Col xs={4} md={2} className="border-end">
-                            <p className="fs-6 p-0 m-0">current:</p>
-                            <h4><i className="bi bi-thermometer-half"></i>
-                            {kelvinToCelsius(day.main.temp).toFixed(0)} &deg;C</h4>
-                                
-                        </Col>
-                            
-                        <Col xs={4} md={2} className="border-end text-center">
-                                <img
-                                src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
-                                alt={city.weather[0].description}
-                                className="weather-icon w-25"
-                                />
-                                <p>{day.weather[0].description} </p>
-                        </Col>
-                            <Col xs={4} md={2} className="border-end">
-                            <p className="fs-6 p-0 m-0">Minime e Massime:</p>
-                            <h5><i className="bi bi-thermometer-half"></i>
-                            {kelvinToCelsius(day.main.temp_min).toFixed(0)}  - {kelvinToCelsius(day.main.temp_max).toFixed(0)} &deg;C</h5>
-                            </Col>
-                            <Col xs={4} md={2} className="border-end">
-                            <p className="fs-6 p-0 m-0">Venti:</p>
-                            <h4>{day.wind.speed} <i className="bi bi-wind"></i></h4>
-                            </Col>
-                            <Col xs={4} md={2}>
-                            <p className="fs-6 p-0 m-0">Umidità:</p>
-                            <h4>{day.main.humidity}% <i className="bi bi-droplet"></i></h4>
-                            </Col>
-                    </Row>
-                    )
-                    })
-                } 
+            
 
         </Container>
     )

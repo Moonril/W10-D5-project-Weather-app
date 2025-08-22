@@ -70,6 +70,25 @@ body {
     }
 }
 
+/* weather icons in cards */
+
+
+@media only screen and (min-width: 768px) {
+    .weather-icon-card {
+        width: 50% !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .weather-icon-card {
+        width: 30% !important;
+    }
+}
+@media only screen and (min-width: 1400px) {
+    .weather-icon-card {
+        width: 20% !important;
+    }
+}
 
 /* scrollbar forecast */
 

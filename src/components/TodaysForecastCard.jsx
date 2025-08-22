@@ -1,4 +1,4 @@
-import { Col } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import tz_lookup from 'tz-lookup'
 
 
@@ -20,6 +20,8 @@ function TodaysForecastCard({ cityForecast, targetDate, timeZone }) {
     return localDate === targetDateString
   })
 
+  const windPerHour =(w) => w * 3.6
+
 
   return (
     <>
@@ -32,19 +34,33 @@ function TodaysForecastCard({ cityForecast, targetDate, timeZone }) {
         })
 
         return (
-          <Col
-            key={i}
-            xs={3}
-            className="border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 text-center m-1"
-          >
-            <img
-              src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
-              alt={day.weather[0].description}
-              className="weather-icon w-25"
+          <Row key={i} className="mx-0 p-1 justify-content-between text-center  border border-1 border-white rounded-4 bg-white bg-opacity-10 blur-effect pe-2">
+
+
+            <Col xs={2} md={2} className="p-1 align-content-center">
+              <h2 className='fs-6'>{localTime}</h2>      
+            </Col>
+            <Col xs={2} md={2} className="p-1 align-content-center">
+              <h2 className='fs-6'><i className="bi bi-thermometer-half"></i>
+              {kelvinToCelsius(day.main.temp).toFixed(0)}&deg;C</h2>      
+            </Col>
+            <Col xs={2} md={2} className="p-1 align-content-center">
+                    <img
+                src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
+                alt={day.weather[0].description}
+                className="weather-icon w-100 weather-icon-card"
             />
-            <p>{localTime}</p>
-            <p>{kelvinToCelsius(day.main.temp).toFixed(0)} &deg;C</p>
-          </Col>
+            </Col>
+            <Col xs={2} md={2} className="p-1 align-content-center">
+              <p className="p-0 m-0 fs-6">Venti:</p>
+              <h2 className='fs-6'>{windPerHour(day.wind.speed).toFixed(1)} <i className="bi bi-wind"></i>
+              </h2>
+            </Col>
+            <Col xs={2} md={2} className="p-1 align-content-center">
+              <p className="fs-6 p-0 m-0">Umidità:</p>
+              <h2 className='fs-6'>{day.main.humidity}% <i className="bi bi-droplet"></i> </h2>
+            </Col>
+          </Row>
         )
       })}
     </>
