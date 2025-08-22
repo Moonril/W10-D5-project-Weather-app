@@ -68,8 +68,8 @@ const MainSearch = function () {
                         <Form.Control className="my-2" type='text' placeholder={`ultima ricerca: ${search || 'nessuna'} `} value={search} onChange={(e) =>
                             setSearch(e.target.value)
                         } />
-                        <Button className="text-light border border-light p-2 rounded-0 bg-transparent mb-1 ms-1" type="submit">Cerca</Button>
-                        <Button className="text-light border border-light p-2 rounded-0 bg-transparent mb-1 ms-1" onClick={(e) => {
+                        <Button className="text-light border border-light p-2 rounded-2 bg-transparent mb-1 ms-1" type="submit">Cerca</Button>
+                        <Button className="text-light border border-light p-2 rounded-2 bg-transparent mb-1 ms-1" onClick={(e) => {
                             
                             setSearch('')
                         }}>Reset</Button>

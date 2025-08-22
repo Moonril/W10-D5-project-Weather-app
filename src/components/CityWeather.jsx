@@ -5,6 +5,7 @@ import { Col, Container, Row } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import TodaysForecastCard from "./TodaysForecastCard"
 import tz_lookup from "tz-lookup"
+import NotFound from './NotFound'
 
 
 
@@ -135,10 +136,10 @@ const CityWeather = function () {
 
     // condizionale per evitare errori
     if (!city) {
-        return <div className="text-center p-5">Loading...</div>
+        return <div className="text-center p-5"><NotFound /></div>
     }
     if (!cityForecast) {
-        return <div className="text-center p-5">Loading...</div> 
+        return <div className="text-center p-5"><NotFound /></div> 
     }
 
 
