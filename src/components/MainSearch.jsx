@@ -24,9 +24,9 @@ const MainSearch = function () {
     }, [])
     
     return (
-        <Container>
+        <Container className="d-flex flex-column-reverse flex-md-column">
             <Row className="justify-content-center py-3">
-                <h1 className="text-center text-light py-5">Dove andiamo oggi?</h1>
+                <h1 className="text-center text-light py-5">Where should we go today?</h1>
                 <Col xs={12} sm={6} md={4} lg={2} xl={2}>
                 <Card className="border-0 bg-transparent rounded-4">
                     <Link to={'/cityWeather/quercianella'} >
@@ -62,7 +62,7 @@ const MainSearch = function () {
                 
             </Row>
             <Row className="my-4 justify-content-center">
-                <h2 className="text-center text-light">Cerca un destinazione:</h2>
+                <h2 className="text-center text-light">Find your destination:</h2>
                 <Col xs={6} >
                 <Form className="text-center" onSubmit={handleSubmit}>
                         <Form.Control className="my-2" type='text' placeholder={`ultima ricerca: ${search || 'nessuna'} `} value={search} onChange={(e) =>

@@ -1,4 +1,5 @@
 import { Col, Row } from 'react-bootstrap'
+import { FaArrowUp } from 'react-icons/fa'
 import tz_lookup from 'tz-lookup'
 
 
@@ -33,15 +34,21 @@ function TodaysForecastCard({ cityForecast, targetDate, timeZone }) {
           minute: '2-digit'
         })
 
+        const windDirectionText = (deg)=>{
+          const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
+          const index = Math.round(deg /45) % 8
+          return directions[index]
+        }
+
         return (
           <Row key={i} className="mx-0 p-1 justify-content-between text-center  border border-1 border-white rounded-4 bg-white bg-opacity-10 blur-effect pe-2">
 
 
             <Col xs={2} md={2} className="p-1 align-content-center">
-              <h2 className='fs-6'>{localTime}</h2>      
+              <h2 className='fs-6 text-current-weather-size-in-lg'>{localTime}</h2>      
             </Col>
             <Col xs={2} md={2} className="p-1 align-content-center">
-              <h2 className='fs-6'><i className="bi bi-thermometer-half"></i>
+              <h2 className='fs-6 text-current-weather-size-in-lg'><i className="bi bi-thermometer-half"></i>
               {kelvinToCelsius(day.main.temp).toFixed(0)}&deg;C</h2>      
             </Col>
             <Col xs={2} md={2} className="p-1 align-content-center">
@@ -52,13 +59,14 @@ function TodaysForecastCard({ cityForecast, targetDate, timeZone }) {
             />
             </Col>
             <Col xs={2} md={2} className="p-1 align-content-center">
-              <p className="p-0 m-0 fs-6">Venti:</p>
-              <h2 className='fs-6'>{windPerHour(day.wind.speed).toFixed(1)} <i className="bi bi-wind"></i>
+              <p className="p-0 m-0 fs-6 text-current-weather-size-in-lg">Venti:</p>
+              
+              <h2 className='fs-6 text-current-weather-size-in-lg'>{windPerHour(day.wind.speed).toFixed(0)} km/h <FaArrowUp style={{ transform: `rotate(${day.wind.deg}deg)` }} />
               </h2>
             </Col>
             <Col xs={2} md={2} className="p-1 align-content-center">
-              <p className="fs-6 p-0 m-0">Umidità:</p>
-              <h2 className='fs-6'>{day.main.humidity}% <i className="bi bi-droplet"></i> </h2>
+              <p className="fs-6 p-0 m-0 text-current-weather-size-in-lg">Umidità:</p>
+              <h2 className='fs-6 text-current-weather-size-in-lg'>{day.main.humidity}% <i className="bi bi-droplet"></i> </h2>
             </Col>
           </Row>
         )

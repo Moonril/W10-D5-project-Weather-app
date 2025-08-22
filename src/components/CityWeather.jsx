@@ -212,7 +212,7 @@ const CityWeather = function () {
                                 alt={city.weather[0].description}
                                 className="weather-icon w-100"
                             />
-                            <p>{city.weather[0].description} </p>
+                            <p className="text-center">{city.weather[0].description} </p>
                         </div>
                     </div>
                     {/* wind - humidity - rain */}

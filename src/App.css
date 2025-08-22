@@ -19,6 +19,35 @@ body {
     background-image: linear-gradient(to bottom, #963eac, #1b2141);
 }
 
+
+/* alternate colours orange - red */
+
+/* body {
+    background-image: linear-gradient(to bottom right, #f99768, #f46962, #b94655, #825e80);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+} */
+
+/* .bg-dropdown {
+    background-image: linear-gradient(to bottom right, #825e80, #b94655);
+} */
+
+
+/* .footer {
+    background-image: linear-gradient(to bottom, #b94655, #825e80);
+} */
+
+/* alternate colours blue */
+
+/* body {
+    background-image: linear-gradient(to bottom right, #0892d0, #4b0082);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+} */
+
+
 .maledetto-bg {
     background-color: transparent;
 }
@@ -47,6 +76,15 @@ body {
         height: 63%;
     }
 }
+
+/* font breakpoints */
+
+@media only screen and (min-width: 1000px) {
+    .text-current-weather-size-in-lg {
+        font-size: larger !important;
+    }
+}
+
 
 
 
