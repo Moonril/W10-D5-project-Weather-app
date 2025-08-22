@@ -1,16 +1,21 @@
 import { Col } from 'react-bootstrap'
+import tz_lookup from 'tz-lookup'
 
-function TodaysForecastCard({ cityForecast, targetDate }) {
+
+function TodaysForecastCard({ cityForecast, targetDate, timeZone }) {
+
+  /* timezone lookup */
+  const tzCity = tz_lookup(cityForecast.city.coord.lat, cityForecast.city.coord.lon)
+
   const targetDateString = targetDate.toLocaleDateString('en-CA', {
-    timeZone: 'Europe/Madrid'
+    timeZone: tzCity
   }) 
-
 
   const kelvinToCelsius = (k) => k - 273.15
 
   const todayForecasts = cityForecast.list.filter((item) => {
     const localDate = new Date(item.dt * 1000).toLocaleDateString('en-CA', {
-      timeZone: cityForecast.timezone
+      timeZone: tzCity
     })
     return localDate === targetDateString
   })
@@ -19,9 +24,9 @@ function TodaysForecastCard({ cityForecast, targetDate }) {
   return (
     <>
       {todayForecasts.map((day, i) => {
-        const offsetMs = cityForecast.timezone * 1000;
-        const localDate = new Date(day.dt * 1000 + offsetMs);
-        const localTime = localDate.toLocaleTimeString('es-ES', {
+
+        const localTime = new Date(day.dt * 1000).toLocaleTimeString('es-ES', {
+          timeZone: tzCity,
           hour: '2-digit',
           minute: '2-digit'
         })

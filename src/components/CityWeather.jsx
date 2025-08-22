@@ -4,15 +4,14 @@ import { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import TodaysForecastCard from "./TodaysForecastCard"
+import tz_lookup from "tz-lookup"
+
 
 
 const urlApiFirstPart = 'https://api.openweathermap.org/data/2.5/weather?q='
 const urlApiFirstPartForecast = 'https://api.openweathermap.org/data/2.5/forecast?q='
 const urlApiSecondPart = '&appid=651b29d01268fe4ce0c1b52f6474c20e'
 
-const kelvinToCelsius = (kelvin) => {
-    return kelvin - 273.15
-}
 
 const CityWeather = function () {
     const [city, setCity] = useState(null)
@@ -21,26 +20,9 @@ const CityWeather = function () {
 
     const params = useParams()
 
-    /* current date time */
-    const currDate = new Date()
-    const formattedDate = currDate.toLocaleDateString('it-IT', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-    })
-    const currTime = new Date().toLocaleTimeString('it-IT', {
-        hour: '2-digit',
-        minute: '2-digit'
-    })
+    const kelvinToCelsius = (k) => k - 273.15
 
-    /* sunrise/set hours */
-
-    function formatSunTime(unixTime) {
-        return new Date(unixTime * 1000).toLocaleTimeString('it-IT', {
-            timeZone: 'Europe/Madrid',
-            hour: '2-digit',
-            minute: '2-digit'
-    })}
+  
 
     // fetch current weather
     const getWeather = () => {
@@ -55,20 +37,9 @@ const CityWeather = function () {
             .then((data) => {
                 // data è un oggetto
 
-                // mi interessa:
-                // data.main.feels_like
-                // data.main.hummidity
-                // data.main.temp
-                // data.main.temp_max
-                // data.main.temp_min
-                // data.name rende 'Quercianella'
-
-                // data.weather[0].main mi dice se è 'clear' oppure 'description'
-
-                // data.wind.speed
 
                 console.log("Data:", data)
-                setCity(data) // Imposta i dati ricevuti nello stato
+                setCity(data) 
             })
             .catch((err) => {
                 console.log('Errore nella fetch:', err)
@@ -151,6 +122,8 @@ const CityWeather = function () {
         date.setDate(date.getDate() + offset)
         return date
     }
+    
+
 
     //useEffect
 
@@ -167,6 +140,37 @@ const CityWeather = function () {
     if (!cityForecast) {
         return <div className="text-center p-5">Loading...</div> 
     }
+
+
+    /* current date time */
+
+    const tzCity = tz_lookup(cityForecast.city.coord.lat, cityForecast.city.coord.lon)
+
+
+    const currDate = new Date()
+    const formattedDate = currDate.toLocaleDateString('it-IT', {
+        timeZone: tzCity,
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    })
+    const currTime = new Date().toLocaleTimeString('it-IT', {
+        timeZone: tzCity,
+        hour: '2-digit',
+        minute: '2-digit'
+    })
+
+      /* sunrise/set hours */
+
+    function formatSunTime(unixTime) {
+        return new Date(unixTime * 1000).toLocaleTimeString('it-IT', {
+            timeZone: tzCity,
+            timeZone: tzCity,
+            hour: '2-digit',
+            minute: '2-digit'
+    })}
+
+
 
     return (
         <Container fluid className="mx-0 p-0 text-light">
