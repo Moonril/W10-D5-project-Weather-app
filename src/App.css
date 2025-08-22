@@ -33,6 +33,7 @@ body {
     object-fit: cover;
 }
 
+/* black opaque overlay */
 #current-weather-overlay {
   bottom: 0;
   left: 0;
@@ -41,6 +42,57 @@ body {
   background: rgba(0, 0, 0, 0.4);
 }
 
+@media only screen and (min-width: 1200px) {
+    #current-weather-overlay {
+        height: 63%;
+    }
+}
+
+
+
 #current-temp {
     font-size: 5rem;
+}
+.blur-effect {
+    backdrop-filter: blur(10px);
+}
+
+/* wind humidity overlay breakpoints */
+
+@media only screen and (min-width: 768px) {
+    #wind-humidity-rain-overlay {
+        width: 25% !important;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    #wind-humidity-rain-overlay {
+        width: 15% !important;
+    }
+}
+
+
+/* scrollbar forecast */
+
+.row.flex-nowrap {
+  overflow-x: auto;
+  scrollbar-width: thin;              /* Firefox */
+  scrollbar-color: #999 transparent;  /* Firefox: thumb e track */
+}
+
+/* Chrome, Edge, Safari */
+.row.flex-nowrap::-webkit-scrollbar {
+  height: 6px; 
+}
+
+.row.flex-nowrap::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+.row.flex-nowrap::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 10px
+}
+
+.row.flex-nowrap::-webkit-scrollbar-thumb:hover {
+  background-color: #666;
 }

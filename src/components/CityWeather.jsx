@@ -186,10 +186,11 @@ const CityWeather = function () {
                 </Col>
                 {/* current overlay */}
                 <div id="current-weather-overlay" className="d-flex flex-column position-absolute">
-                    <h1 className="text-light py-3">{city.name}</h1>
+                    <h1 className="text-light pt-3">{city.name}</h1>
                     <div className="d-flex flex-row justify-content-between">
                         {/* temp */}
-                        <div className="border border-1 border-white rounded-3 p-2 bg-white bg-opacity-10">
+                        {/* <div className="border border-1 border-white rounded-3 p-2 bg-white bg-opacity-10"> */}
+                        <div className="p-2">
                             <h4 className="fs-6 fw-light">{formattedDate} &middot; {currTime}</h4>
                             <h2 ><i className="bi bi-thermometer-half"></i>
                                 <span id="current-temp">
@@ -213,26 +214,26 @@ const CityWeather = function () {
                         </div>
                     </div>
                     {/* wind - humidity - rain */}
-                    <div className="d-flex flex-row text-center justify-content-between border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 w-50 mt-1 align-self-center">
+                    <div id="wind-humidity-rain-overlay" className="d-flex flex-row text-center justify-content-between border border-1 border-white rounded-5 p-3 bg-white bg-opacity-10 w-50 mt-1 align-self-center align-self-md-start blur-effect">
                         <div>
-                            <p><i className="bi bi-wind"></i></p>
-                            <h2 className="fs-6"> {city.wind.speed} m/s
+                            <p className="fs-6 m-0"><i className="bi bi-wind"></i></p>
+                            <h2 className="fs-6 m-0"> {city.wind.speed} m/s
                             </h2>
                         </div>
                         <div>
-                            <p className="fs-6"><i className="bi bi-moisture"></i></p>
-                            <h2 className="fs-6">{city.main.humidity}%</h2>
+                            <p className="fs-6 m-0"><i className="bi bi-moisture"></i></p>
+                            <h2 className="fs-6 m-0">{city.main.humidity}%</h2>
                         </div>
                         <div>
-                            <p><i className="bi bi-umbrella"></i></p>
-                            <p>{city.rain ? city.rain : '0'}/h</p>
+                            <p className="fs-6 m-0"><i className="bi bi-umbrella"></i></p>
+                            <p className="fs-6 m-0">{city.rain ? city.rain : '0'}/h</p>
                         </div>
                     </div>
                 </div>
             </Row>
 
             {/* next few hours today */}
-            <Row className="p-3 m-0 justify-content-center">
+            <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(0)} />
             </Row>
 
@@ -258,7 +259,7 @@ const CityWeather = function () {
 
                 {/* tomorrow */}
                 <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
-            <Row className="p-3 m-0 justify-content-center">
+            <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(1)} />
             </Row>
             {/* 2 days */}
@@ -270,7 +271,7 @@ const CityWeather = function () {
                 })}
                 </h5>
 
-            <Row className="p-3 m-0 justify-content-center">
+            <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(2)} />
             </Row>
             {/* 3 days */}
@@ -281,7 +282,7 @@ const CityWeather = function () {
                     year: 'numeric'
                 })}</h5>
 
-            <Row className="p-3 m-0 justify-content-center">
+            <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(3)} />
             </Row>
             {/* 4 days */}
@@ -292,7 +293,7 @@ const CityWeather = function () {
                     year: 'numeric'
                 })}</h5>
 
-            <Row className="p-3 m-0 justify-content-center">
+            <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(4)} />
             </Row>
 
