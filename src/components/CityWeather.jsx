@@ -142,7 +142,7 @@ const CityWeather = function () {
     }
 
 
-    /* current date time */
+    /* current date time and timezone */
 
     const tzCity = tz_lookup(cityForecast.city.coord.lat, cityForecast.city.coord.lon)
 
@@ -255,27 +255,42 @@ const CityWeather = function () {
 
             {/*  forecast */}
 
-                <h5 className="ps-3 py-3">Next 5 days:</h5>
+                {/* tomorrow */}
                 <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
-                {/* next few hours tomorrow */}
             <Row className="p-3 m-0 justify-content-center">
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(1)} />
             </Row>
-                <h5 className="ps-3 py-3">Next 5 days:</h5>
-                <h5 className="ps-3 py-3 text-center"></h5>
-                {/* next few hours today */}
+            {/* 2 days */}
+                <h5 className="ps-3 py-3 text-center">{getDateOffset(2).toLocaleDateString('it-IT', {
+                    timeZone: tzCity,
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                })}
+                </h5>
+
             <Row className="p-3 m-0 justify-content-center">
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(2)} />
             </Row>
-                <h5 className="ps-3 py-3">Next 5 days:</h5>
-                <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
-                {/* next few hours today */}
+            {/* 3 days */}
+                <h5 className="ps-3 py-3 text-center">{getDateOffset(3).toLocaleDateString('it-IT', {
+                    timeZone: tzCity,
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                })}</h5>
+
             <Row className="p-3 m-0 justify-content-center">
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(3)} />
             </Row>
-                <h5 className="ps-3 py-3">Next 5 days:</h5>
-                <h5 className="ps-3 py-3 text-center">Tomorrow:</h5>
-                {/* next few hours today */}
+            {/* 4 days */}
+                <h5 className="ps-3 py-3 text-center">{getDateOffset(4).toLocaleDateString('it-IT', {
+                    timeZone: tzCity,
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                })}</h5>
+
             <Row className="p-3 m-0 justify-content-center">
                 <TodaysForecastCard cityForecast={cityForecast} targetDate={getDateOffset(4)} />
             </Row>
