@@ -35,6 +35,7 @@ function ForecastCard({ cityForecast, targetDate, timeZone }) {
           <Col
             key={i}
             xs={3}
+            md={2}
             className="border border-1 border-white rounded-5 p-2 bg-white bg-opacity-10 text-center m-1"
           >
             <img

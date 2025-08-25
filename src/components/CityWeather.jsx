@@ -17,7 +17,7 @@ const CityWeather = function () {
 
     const [city, setCity] = useState(null)
     const [cityForecast, setCityForecast] = useState(null)
-    const [immagine, setImmagine] = useState('london')
+    const [image, setImage] = useState('london')
 
     const params = useParams()
 
@@ -99,7 +99,7 @@ const CityWeather = function () {
                 throw new Error('No picture available, default used');
             }
             
-            setImmagine(data)
+            setImage(data)
     
     
     
@@ -122,6 +122,14 @@ const CityWeather = function () {
     //useEffect
 
     useEffect(() => {
+
+        setIsLoading(true)
+        setIsError(false)
+        setImage(null)
+        setCity(null)
+        setCityForecast(null)
+
+
         getWeather()
         getForecast()
         getImages()
@@ -129,14 +137,7 @@ const CityWeather = function () {
 
     // condizionale per evitare errori
 
-    if (isLoading) {
-        return (
-            <div className="text-center">
-                <Spinner variant="primary" animation="border" />
-            </div>
-        )
-    }
-
+/*     
     if (isError) {
         return (
             <div className="text-center p-5">
@@ -144,14 +145,38 @@ const CityWeather = function () {
             </div>
         )
     }
-
-
+    
+    if (isLoading) {
+        return (
+            <div className="text-center">
+                <Spinner variant="primary" animation="border" />
+            </div>
+        )
+    } */
+/* 
     if (!city) {
-        return <div className="text-center p-5"><NotFound /></div>
+        return <div className="text-center p-5">Loading..</div>
     }
     if (!cityForecast) {
-        return <div className="text-center p-5"><NotFound /></div> 
+        return <div className="text-center p-5">Loading..</div> 
     }
+ */
+
+    if (isError) {
+    return (
+        <div className="text-center p-5">
+            <NotFound />
+        </div>
+    )
+}
+
+if (isLoading || !city || !cityForecast) {
+    return (
+        <div className="text-center">
+            <Spinner variant="primary" animation="border" />
+        </div>
+    )
+}
 
 
     /* current date time and timezone */
@@ -192,7 +217,7 @@ const CityWeather = function () {
                 
                 <Col className="mx-0 p-0">
                     <img
-                        src={immagine?.photos?.[0]?.src?.landscape ? immagine.photos[0].src.landscape : 'https://images.pexels.com/photos/6317304/pexels-photo-6317304.jpeg'}
+                        src={image?.photos?.[0]?.src?.landscape ? image.photos[0].src.landscape : 'https://images.pexels.com/photos/6317304/pexels-photo-6317304.jpeg'}
                         className="w-100 maremma-dinamica"
                         alt={"foto " + city.name}
                     />

@@ -8,7 +8,7 @@ const MyNavbar = function() {
         <nav className="navbar navbar-expand-md">
             <div className="container-fluid">
                 {/* find better logo */}
-                <Link to='/home' className="navbar-brand">
+                <Link to='/' className="navbar-brand">
                 <img src="weather-icon.png" alt="weather logo" width="50" height="50" />
                 </Link>
               
@@ -31,7 +31,7 @@ const MyNavbar = function() {
 
                         <Dropdown.Item as={Link} to={'/cityweather/seoul'} className={location.pathname === '/cityweather/seoul' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Seoul</Dropdown.Item>
 
-                        <Dropdown.Item as={Link} to={'/home'} className={location.pathname === '/home' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Cerca</Dropdown.Item>
+                        <Dropdown.Item as={Link} to={'/'} className={location.pathname === '/' ? 'dropdown-item text-light link-dark' : 'dropdown-item text-secondary link-dark'} >Cerca</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
