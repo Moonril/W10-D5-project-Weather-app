@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Col, Container, Row } from "react-bootstrap"
+import { Col, Container, Row, Spinner } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import ForecastCard from "./ForecastCard"
 import tz_lookup from "tz-lookup"
@@ -24,6 +24,11 @@ const CityWeather = function () {
     const kelvinToCelsius = (k) => k - 273.15
     const windPerHour =(w) => w * 3.6
 
+    /* spinners */
+
+    const [isLoading, setIsLoading] = useState(true)
+    const [isError, setIsError] = useState(false)
+
   
 
     // fetch current weather
@@ -37,14 +42,16 @@ const CityWeather = function () {
                 }
             })
             .then((data) => {
-                // data è un oggetto
 
 
                 //console.log("Data current weather:", data)
-                setCity(data) 
+                setCity(data)
+                setIsLoading(false)
             })
             .catch((err) => {
                 console.log('Fetch issue:', err)
+                setIsLoading(false)
+                setIsError(true)
             })
     }
 
@@ -121,6 +128,24 @@ const CityWeather = function () {
     }, [params.cityName]) 
 
     // condizionale per evitare errori
+
+    if (isLoading) {
+        return (
+            <div className="text-center">
+                <Spinner variant="primary" animation="border" />
+            </div>
+        )
+    }
+
+    if (isError) {
+        return (
+            <div className="text-center p-5">
+                <NotFound />
+            </div>
+        )
+    }
+
+
     if (!city) {
         return <div className="text-center p-5"><NotFound /></div>
     }
@@ -160,9 +185,11 @@ const CityWeather = function () {
 
 
     return (
+        
         <Container fluid className="mx-0 p-0 text-light">
-            {/* photo */}
+    
             <Row className="mx-0 p-0 bg-row position-relative">
+                
                 <Col className="mx-0 p-0">
                     <img
                         src={immagine?.photos?.[0]?.src?.landscape ? immagine.photos[0].src.landscape : 'https://images.pexels.com/photos/6317304/pexels-photo-6317304.jpeg'}
@@ -285,9 +312,6 @@ const CityWeather = function () {
             <Row className="p-3 m-0 justify-content-start flex-nowrap overflow-auto" style={{ gap: '0.5rem' }}>
                 <ForecastCard cityForecast={cityForecast} targetDate={getDateOffset(4)} />
             </Row>
-
-            
-
         </Container>
     )
 }
