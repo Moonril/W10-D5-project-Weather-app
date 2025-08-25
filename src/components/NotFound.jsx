@@ -8,7 +8,7 @@ const NotFound = function () {
 
   return (
     <div className="text-center mt-4">
-      <h2 className='text-light'>404 - City not found <i class="bi bi-emoji-frown"></i></h2>
+      <h2 className='text-light'>404 - City not found <i className="bi bi-emoji-frown"></i></h2>
       <p className='text-light'>
         Do you want to go back to the <Link to="/home">Home Page</Link>?
       </p>

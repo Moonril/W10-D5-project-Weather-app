@@ -1,5 +1,3 @@
-/* non ho avuto tempo di mettere controlli per l'indirizzo in caso si inseriscano parole o città non esistenti :( */
-
 import { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { useParams } from "react-router-dom"
@@ -9,13 +7,14 @@ import NotFound from './NotFound'
 import TodaysForecastCard from "./TodaysForecastCard"
 
 
-
+/*  APIS */
 const urlApiFirstPart = 'https://api.openweathermap.org/data/2.5/weather?q='
 const urlApiFirstPartForecast = 'https://api.openweathermap.org/data/2.5/forecast?q='
 const urlApiSecondPart = '&appid=651b29d01268fe4ce0c1b52f6474c20e'
 
 
 const CityWeather = function () {
+
     const [city, setCity] = useState(null)
     const [cityForecast, setCityForecast] = useState(null)
     const [immagine, setImmagine] = useState('london')
@@ -41,11 +40,11 @@ const CityWeather = function () {
                 // data è un oggetto
 
 
-                console.log("Data:", data)
+                //console.log("Data current weather:", data)
                 setCity(data) 
             })
             .catch((err) => {
-                console.log('Errore nella fetch:', err)
+                console.log('Fetch issue:', err)
             })
     }
 
@@ -62,20 +61,12 @@ const CityWeather = function () {
                 }
             })
             .then((data) => {
-                console.log("Dati forecast ricevuti:", data)
-                // lista ogni [i] è un giorno
-                // data.list[i].main.temp
-                // data.list[i].main.temp_min
-                // data.list[i].main.temp_max
-                
-                // data.list[i].weather[0].description
-
-                // data.list[i].wind.speed
+                //console.log("Data forecast:", data)
 
                 setCityForecast(data) 
             })
             .catch((err) => {
-                console.log('Errore nella fetch:', err)
+                console.log('Fetch issue:', err)
             })
     }
 
@@ -91,21 +82,14 @@ const CityWeather = function () {
             if(response.ok){
                 return response.json()
             } else {
-                throw new Error('errore prima parte, not ok')
+                throw new Error('fetch not ok')
             }
         })
         .then((data) => {
-            console.log('data', data)
-            // è un oggetto contentente un array di 15 oggetti.
-            // data.photos[i].url oppure .src.small .portrait .medium
-            // data.photo[0].src.landscape
-            // ora bisogna assegnare ogni singola foto alle card che esistono già
-    
-            // document.getElementById("imageid").src="../template/save.png";
-    
-    
+            //console.log('data pexels: ', data)
+        
             if (!data.photos || data.photos.length === 0) {
-                throw new Error('Nessuna foto disponibile');
+                throw new Error('No picture available, default used');
             }
             
             setImmagine(data)
@@ -114,11 +98,11 @@ const CityWeather = function () {
     
         })
         .catch((err) => {
-            console.log('si è verificato un errore', err)
+            console.log('An error occurred', err)
         })
     }
 
-    /* filter forecast for today's weather */
+    /* filter by day forecast for foresìcast API */
 
     const getDateOffset = (offset) => {
     const date = new Date()
@@ -177,7 +161,7 @@ const CityWeather = function () {
 
     return (
         <Container fluid className="mx-0 p-0 text-light">
-            {/* foto */}
+            {/* photo */}
             <Row className="mx-0 p-0 bg-row position-relative">
                 <Col className="mx-0 p-0">
                     <img
@@ -186,12 +170,11 @@ const CityWeather = function () {
                         alt={"foto " + city.name}
                     />
                 </Col>
-                {/* current overlay */}
+                {/* current weather overlay */}
                 <div id="current-weather-overlay" className="d-flex flex-column position-absolute">
                     <h1 className="text-light pt-3">{city.name}</h1>
                     <div className="d-flex flex-row justify-content-between">
-                        {/* temp */}
-                        {/* <div className="border border-1 border-white rounded-3 p-2 bg-white bg-opacity-10"> */}
+                        {/* temprature */}
                         <div className="p-2">
                             <h4 className="fs-6 fw-light">{formattedDate} &middot; {currTime}</h4>
                             <h2 ><i className="bi bi-thermometer-half"></i>
@@ -228,7 +211,7 @@ const CityWeather = function () {
                         </div>
                         <div>
                             <p className="fs-6 m-0"><i className="bi bi-umbrella"></i></p>
-                            <p className="fs-6 m-0">{city.rain ? city.rain : '0'}/h</p>
+                            <p className="fs-6 m-0">{city.rain ? city.rain['1h'] : '0'}/h</p>
                         </div>
                     </div>
                 </div>
@@ -241,7 +224,7 @@ const CityWeather = function () {
             </Row>
 
 
-            {/* today pressure + sunrise */}
+            {/* today's pressure + sunrise */}
 
             <Row className="m-0 p-3 justify-content-around justify-content-md-center border-1 border-bottom "  style={{ gap: '0.5rem' }}>
                 <Col xs={5} md={3} lg={2} className="border border-1 border-white rounded-4 bg-white bg-opacity-10 text-start p-2">
@@ -253,9 +236,9 @@ const CityWeather = function () {
                 <Col xs={5} md={3} lg={2} className="border border-1 border-white rounded-4 bg-white bg-opacity-10 text-center p-2">
                     <p className="mb-1 text-start text-center">Pressure</p>
                     <p className="m-0 text-start">Ground level</p>
-                    <p className="m-0 fs-3"><i class="bi bi-cloud-fog"></i> {city.main.pressure} hPa</p>
+                    <p className="m-0 fs-3"><i className="bi bi-cloud-fog"></i> {city.main.pressure} hPa</p>
                     <p className="m-0 text-start">Sea level</p>
-                    <p className="m-0 fs-3"><i class="bi bi-tsunami"></i> {city.main.pressure} hPa</p>
+                    <p className="m-0 fs-3"><i className="bi bi-tsunami"></i> {city.main.pressure} hPa</p>
                 </Col>
             </Row>
 
